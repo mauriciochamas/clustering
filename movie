@@ -1,0 +1,32 @@
+movie <- read.table("movie.txt",header = F,sep="|",quote="\"")
+str(movie)
+colnames(movie) <- c("ID","Title","ReleaseDate","VideoReleaseDate","IMDB","Unknown","Action","Adventure","Animation","Childrens","Comedy","Crime","Documentary","Drama","Fantasy","FilmNoir","Horror","Musical","Mystery","Romance","SciFi","Thriller","War","Western")
+str(movie)
+movie$ID <- NULL
+movie$ReleaseDate <- NULL
+movie$VideoReleaseDate <- NULL
+movie$IMDB <- NULL
+movie <- unique(movie)
+str(movie)
+table(movie$Romance&movie$Drama)
+dista <- dist(movie[2:20],method="euclidean")
+clust <- hclust(dista,method = "ward.D")
+plot(clust)
+group <- cutree(clust,k=10)
+tapply(movie$Action,group,mean)
+tapply(movie$Romance,group,mean)
+subset(movie,Title=="Men in Black (1997)")
+group[257]
+cluster2 <- subset(movie,group==2)
+cluster2$Title[1:10]
+#you can get all of the column (variable) means for cluster 1
+colMeans(subset(movie[2:20], group == 1))
+#split the data into subsets based on the clusters
+spl = split(movie[2:20],group)
+spl[[1]]
+subset(movie[2:20],group==1)
+colMeans(spl[[1]])
+#the cluster centroids for all clusters
+#The lapply function runs the second argument (colMeans) on each element of the first argument (each cluster subset in spl)
+lapply(spl,colMeans)
+group <- cutree(clust,k=2)
