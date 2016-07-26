@@ -1,3 +1,4 @@
+http://files.grouplens.org/datasets/movielens/ml-100k/u.item
 movie <- read.table("movie.txt",header = F,sep="|",quote="\"")
 str(movie)
 colnames(movie) <- c("ID","Title","ReleaseDate","VideoReleaseDate","IMDB","Unknown","Action","Adventure","Animation","Childrens","Comedy","Crime","Documentary","Drama","Fantasy","FilmNoir","Horror","Musical","Mystery","Romance","SciFi","Thriller","War","Western")
