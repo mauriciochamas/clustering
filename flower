@@ -1,0 +1,18 @@
+flo <- flower
+str(flo)
+matrix <- as.matrix(flo)
+str(matrix)
+vector <- as.vector(matrix)
+str(vector)
+vector2 <- as.vector(flower)
+str(vector2)
+distance <- dist(vector,method = "euclidean")
+cluster <- hclust(distance,method = "ward.D")
+plot(cluster)
+rect.hclust(cluster,k=3)
+floCluster <- cutree(cluster,k=3)
+floCluster
+tapply(vector,floCluster,mean)
+dim(floCluster)=c(50,50)
+image(floCluster,axes=F)
+image(matrix,axes=F,col = grey(seq(0,1,length=256)))
