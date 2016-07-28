@@ -1,0 +1,29 @@
+hea <- healthy
+matrix <- as.matrix(hea)
+str(matrix)
+image(matrix,axes=F,col=grey(seq(0,1,length=256)))
+vector <- as.vector(matrix)
+distance <- dist(vector,method = "euclidean")
+str(vector)
+n=356636
+n*(n-1)/2
+#finish hierarchical cluster
+#now k-mean
+k <- 5
+set.seed(1)
+KMC <- kmeans(vector, centers = k,iter.max = 1000)
+str(KMC)
+cluster <- KMC$cluster
+KMC$centers[2]
+dim(cluster)=c(nrow(matrix),ncol(matrix))
+image(cluster,axes=F,col = rainbow(k))
+#TEST TUMOR
+tum <- tumor
+tmatrix <- as.matrix(tum)
+tvector <- as.vector(tmatrix)
+image(tmatrix,axes=F,col=grey(seq(0,1,length=256)))
+library(flexclust)
+KMC.kcca <- as.kcca(KMC,tvector)
+tcluster <- predict(KMC.kcca,newdata=tvector)
+dim(tcluster)=c(nrow(tmatrix),ncol(tmatrix))
+image(tcluster,axes=F,col=rainbow(k))
